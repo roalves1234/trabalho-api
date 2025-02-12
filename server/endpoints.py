@@ -25,7 +25,7 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/get_completion")
-def get_completion(material: Material):
+def get_completion(material: Material, token: str = Depends(Token.verificar)):
     try:
         material.validar()
         resultado = LLM() \
