@@ -6,6 +6,7 @@ from llm import LLM
 from ambiente import Ambiente
 from model import Model
 import jwt
+from jwt import PyJWTError
 
 SECRET_KEY = "UFG"
 ALGORITHM = "HS256"
@@ -18,6 +19,16 @@ def create_access_token(data: dict):
     to_encode = data.copy()
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+def verify_token(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return username
+    except PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
 @router.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     # Dummy authentication, replace with actual validation
@@ -27,7 +38,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/set_model")
-def set_model(model_name: str, token: str = Depends(oauth2_scheme)):
+def set_model(model_name: str, token: str = Depends(verify_token)):
     try:
         Ambiente.set_model(Model.Factory.get(model_name))
         return {"message": f"Modelo alterado com sucesso para {model_name}"}
