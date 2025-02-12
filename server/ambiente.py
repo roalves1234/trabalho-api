@@ -1,10 +1,20 @@
 class Ambiente:
-    model = None
+    usuario = None
+    llm_model = None
 
     @staticmethod
-    def model():
-        return Ambiente.model
+    def usuario():
+        return Ambiente.usuario
 
     @staticmethod
-    def set_model(model):
-        Ambiente.model = model
+    def llm_model():
+        return Ambiente.llm_model
+
+    @staticmethod
+    def set_usuario(value):
+        Ambiente.usuario = value
+        
+    @staticmethod
+    def set_model(value):
+        Ambiente.llm_model = value
+        

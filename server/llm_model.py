@@ -3,7 +3,7 @@ from openai import OpenAI
 from config import Config
 from ambiente import Ambiente
 
-class Model:
+class LLM_Model:
 
     class ChatGPT(IModel):
         _instance = None 
@@ -51,8 +51,8 @@ class Model:
         @staticmethod
         def get(model_name):
             if model_name == "ChatGPT":
-                return Model.ChatGPT()
+                return LLM_Model.ChatGPT()
             elif model_name == "Gemini":
-                return Model.Gemini()
+                return LLM_Model.Gemini()
             else:
                 raise ValueError(f"Nome de modelo inválido, informe ChatGPT ou Gemini.")

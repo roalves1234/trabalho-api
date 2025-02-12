@@ -1,7 +1,8 @@
 from fastapi import HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
-import jwt
 from jwt import PyJWTError
+from ambiente import Ambiente
+import jwt
 
 class Token:
     SECRET_KEY = "UFG"
@@ -18,7 +19,7 @@ class Token:
         try:
             payload = jwt.decode(token, Token.SECRET_KEY, algorithms=[Token.ALGORITHM])
             username: str = payload.get("sub")
-            if username is None:
+            if username is None or username != Ambiente.usuario.nome:
                 raise HTTPException(status_code=401, detail="Token inválido!")
             return username
         except PyJWTError:
