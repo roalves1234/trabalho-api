@@ -15,30 +15,29 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter()
 
-def create_access_token(data: dict):
-    to_encode = data.copy()
+def criar_token(username_data: dict):
+    to_encode = username_data.copy()
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-def verify_token(token: str = Depends(oauth2_scheme)):
+def verificar_token(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail="Token inválido!")
         return username
     except PyJWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(status_code=401, detail="Token inválido!!")
 
-@router.post("/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    # Dummy authentication, replace with actual validation
+@router.post("/get_token")
+def get_token(form_data: OAuth2PasswordRequestForm = Depends()): # passado no body da requisição no formato x-www-form-urlencoded
     if form_data.username != "admin" or form_data.password != "admin":
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    access_token = create_access_token(data={"sub": form_data.username})
-    return {"access_token": access_token, "token_type": "bearer"}
+        raise HTTPException(status_code=400, detail="Nome de usuário ou senha inválidos!")
+    token = criar_token(username_data={"sub": form_data.username})
+    return {"token": token, "token_type": "bearer"}
 
 @router.post("/set_model")
-def set_model(model_name: str, token: str = Depends(verify_token)):
+def set_model(model_name: str, token: str = Depends(verificar_token)):
     try:
         Ambiente.set_model(Model.Factory.get(model_name))
         return {"message": f"Modelo alterado com sucesso para {model_name}"}
