@@ -7,6 +7,14 @@ from  model import Model
 
 router = APIRouter()
 
+@router.post("/set_model")
+def set_model(model_name: str):
+    try:
+        Ambiente.set_model(Model.Factory.get(model_name))
+        return {"message": f"Modelo alterado com sucesso para {model_name}"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @router.post("/get_completion")
 def get_completion(material: Material):
     try:
@@ -22,13 +30,5 @@ def get_completion(material: Material):
                                             """)) \
                         .go()
         return resultado
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-@router.post("/set_model")
-def set_model(model_name: str):
-    try:
-        Ambiente.set_model(Model.Factory.get(model_name))
-        return {"message": f"Modelo alterado com sucesso para {model_name}"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
