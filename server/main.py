@@ -1,15 +1,15 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
 from ambiente import Ambiente
 from  llm_model import LLM_Model
 from usuario import Usuario
+from logger import Logger
 import endpoints
 import os
 
-load_dotenv()
 app = FastAPI()
 Ambiente.set_usuario(Usuario("admin", "admin"))
-Ambiente.set_model(LLM_Model.Gemini())
+Ambiente.set_model(LLM_Model.ChatGPT())
+Logger.get_instance().desativar()
 
 
 app.include_router(endpoints.router)

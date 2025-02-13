@@ -7,6 +7,7 @@ from ambiente import Ambiente
 from llm_model import LLM_Model
 from token_tool import Token
 from llm_work import LLM_Work
+from logger import Logger
 
 router = APIRouter()
 
@@ -27,11 +28,15 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
 
 @router.post("/get_completion")
 def get_completion(material: Material, token: str = Depends(Token.verificar)):
+    Logger.get_instance().set(f"/get_completion: texto = {material.texto}")
     try:
         material.validar()
         
-        return {"texto": material.texto,
-                "completando": LLM_Work(material.texto).get(),
-                "model": Ambiente.llm_model.nome}
+        resultado = {"texto": material.texto,
+                    "completando": LLM_Work(material.texto).get(),
+                    "model": Ambiente.llm_model.nome}
+
+        Logger.get_instance().set(f"Resultado: {resultado}")
+        return resultado
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

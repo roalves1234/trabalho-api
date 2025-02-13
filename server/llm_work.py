@@ -17,6 +17,8 @@ class LLM_Work:
                         
                        # Como fazer a completação
                        - Dê preferência ao que diz o senso comum
+                       - A sua completação deve ser coerente com o texto contido na tag <texto>
+                       - A sua completação só deve ultrapassar 1 linha se for realmente necessário para o sentido da frase como um todo
                         
                        # Output: uma string JSON pura sem formatação, contendo este campo:
                        - completando: correspondente ao texto utilizado na completação.

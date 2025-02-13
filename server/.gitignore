@@ -1,4 +1,5 @@
 .env
 teste.py
 fastapi.code-workspace
+api.log
 __pycache__/
