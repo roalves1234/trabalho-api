@@ -6,6 +6,7 @@ from llm import LLM
 from ambiente import Ambiente
 from llm_model import LLM_Model
 from token_tool import Token
+from llm_work import LLM_Work
 
 router = APIRouter()
 
@@ -28,35 +29,9 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
 def get_completion(material: Material, token: str = Depends(Token.verificar)):
     try:
         material.validar()
-        resposta = LLM() \
-                    .set_model(Ambiente.llm_model) \
-                    .set_prompt(dedent(f"""
-                                        # Input
-                                        - Um texto contido na tag <texto>
-                                        
-                                        # Objetivo
-                                        - Completar o texto contido na tag <texto>
-                                        
-                                        # Como fazer a completação
-                                        - Dê preferência ao que diz o senso comum
-                                        
-                                        # Output: uma string JSON pura sem formatação, contendo este campo:
-                                        - completando: correspondente ao texto utilizado na completação.
-
-                                        <texto>
-                                        {material.texto}
-                                        </texto>
-                                        """)) \
-                    .go()
-        ###
-        import json as json_lib
-        try:
-            completando = json_lib.loads(resposta)["completando"]
-        except json_lib.JSONDecodeError:
-            raise ValueError("JSON inválido - " + resposta)
-        ###
+        
         return {"texto": material.texto,
-                "completando": completando,
+                "completando": LLM_Work(material.texto).get(),
                 "model": Ambiente.llm_model.nome}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
