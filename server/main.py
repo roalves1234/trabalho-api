@@ -13,3 +13,6 @@ Ambiente.set_model(LLM_Model.Gemini())
 
 
 app.include_router(endpoints.router)
+
+
+### incluir tipagem em todo o fonte.

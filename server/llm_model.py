@@ -45,11 +45,11 @@ class LLM_Model:
         def get(self):
             import json as json_lib
             
-            resposta = self._client.generate_content([self.prompt]).text ###
+            resposta = self._client.generate_content([self.prompt]).text 
             try:
                 json_lib.loads(resposta)
             except json_lib.JSONDecodeError:
-                raise ValueError("JSON inválido - " + resposta)
+                raise ValueError("JSON inválido - " + resposta)###
             
             return resposta
     
