@@ -3,7 +3,7 @@ import logging
 class Logger:
     _instance = None
     _ativo = True
-    logger = None
+    _logger = None
     
     def get_instance():
         if Logger._instance is None:
@@ -12,7 +12,7 @@ class Logger:
 
     def __init__(self):
         self._ativo = True
-        self.logger = self.__get_logger()
+        self._logger = self.__get_logger()
     
     def __get_logger(self):
         logging.basicConfig(
@@ -28,7 +28,7 @@ class Logger:
             
     def set(self, mensagem: str):
         if self._ativo:
-            self.logger.info(mensagem)
+            self._logger.info(mensagem)
             
     def ativar(self):
         self._ativo = True
