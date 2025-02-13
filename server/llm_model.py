@@ -20,12 +20,13 @@ class LLM_Model:
             self.prompt = prompt
 
         def get(self):
-            return self._client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": "Você é um assistente muito eficiente."},
-                        {"role": "user", "content": self.prompt}
-                    ]).choices[0].message.content
+            resposta = self._client.chat.completions.create(
+                            model="gpt-4o-mini",
+                            messages=[
+                                {"role": "system", "content": "Você é um assistente muito eficiente."},
+                                {"role": "user", "content": self.prompt}
+                            ]).choices[0].message.content
+            return resposta
 
     class Gemini(IModel):
         _instance = None 
@@ -43,13 +44,7 @@ class LLM_Model:
             self.prompt = prompt
 
         def get(self):
-            import json as json_lib
-            
             resposta = self._client.generate_content([self.prompt]).text 
-            try:
-                json_lib.loads(resposta)
-            except json_lib.JSONDecodeError:
-                raise ValueError("JSON inválido - " + resposta)###
             
             return resposta
     

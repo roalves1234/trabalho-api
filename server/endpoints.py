@@ -28,16 +28,36 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
 def get_completion(material: Material, token: str = Depends(Token.verificar)):
     try:
         material.validar()
-        resultado = LLM() \
-                        .set_model(Ambiente.llm_model) \
-                        .set_prompt(dedent(f"""
-                                            Complete o texto contido na tag <texto> e retorne um JSON com a resposta.
-                                            
-                                            <texto>
-                                            {material.texto}
-                                            </texto>
-                                            """)) \
-                        .go()
-        return resultado
+        resposta = LLM() \
+                    .set_model(Ambiente.llm_model) \
+                    .set_prompt(dedent(f"""
+                                        # Input
+                                        - Um texto contido na tag <texto>
+                                        
+                                        # Objetivo
+                                        - Completar o texto contido na tag <texto>
+                                        
+                                        # Como fazer a completação
+                                        - Dê preferência ao que diz o senso comum
+                                        
+                                        # Output: uma string JSON pura sem formatação, contendo este campo:
+                                        - completando: correspondente ao texto utilizado na completação.
+
+                                        <texto>
+                                        {material.texto}
+                                        </texto>
+                                        """)) \
+                    .go()
+        ###
+        import json as json_lib
+        try:
+            completando = json_lib.loads(resposta)["completando"]
+            print(completando)
+        except json_lib.JSONDecodeError:
+            raise ValueError("JSON inválido - " + resposta)###
+        ###
+        return {"texto": material.texto,
+                "completando": completando,
+                "model": Ambiente.llm_model.__class__.__name__}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
