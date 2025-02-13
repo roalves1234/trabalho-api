@@ -16,7 +16,7 @@ class Logger:
     
     def __get_logger(self):
         logging.basicConfig(
-            level=logging.INFO,
+            level=logging.DEBUG,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
                 logging.StreamHandler(),
@@ -34,5 +34,4 @@ class Logger:
         self._ativo = True
         
     def desativar(self):
-        print("ATENÇÃO: log desativado!")
         self._ativo = False

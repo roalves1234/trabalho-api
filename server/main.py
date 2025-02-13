@@ -6,12 +6,11 @@ from logger import Logger
 import endpoints
 import os
 
-app = FastAPI()
 Ambiente.set_usuario(Usuario("admin", "admin"))
 Ambiente.set_model(LLM_Model.ChatGPT())
 Logger.get_instance().desativar()
 
-
+app = FastAPI()
 app.include_router(endpoints.router)
 
 

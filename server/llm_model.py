@@ -52,7 +52,7 @@ class LLM_Model:
             resposta = self._client.generate_content([self.prompt]).text 
             return resposta
     
-    class Factory: 
+    class Factory:
         @staticmethod
         def get(model_name):
             if model_name == "ChatGPT":
