@@ -1,6 +1,8 @@
+from classes import IModel
+
 class Ambiente:
-    usuario = None
-    llm_model = None
+    usuario: str
+    llm_model: IModel
 
     @staticmethod
     def usuario():
@@ -17,4 +19,3 @@ class Ambiente:
     @staticmethod
     def set_model(value):
         Ambiente.llm_model = value
-        

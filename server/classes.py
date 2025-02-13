@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 
 class Material(BaseModel):
     texto: str
+    
     def validar(self):
         if not self.texto:
             raise Exception("O campo texto é obrigatório.")
@@ -16,3 +17,8 @@ class IModel(ABC):
     @abstractmethod
     def get(self):
         pass
+
+    @property
+    def nome(self):
+        resultado = self.__class__.__name__
+        return resultado

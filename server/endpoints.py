@@ -52,12 +52,11 @@ def get_completion(material: Material, token: str = Depends(Token.verificar)):
         import json as json_lib
         try:
             completando = json_lib.loads(resposta)["completando"]
-            print(completando)
         except json_lib.JSONDecodeError:
-            raise ValueError("JSON inválido - " + resposta)###
+            raise ValueError("JSON inválido - " + resposta)
         ###
         return {"texto": material.texto,
                 "completando": completando,
-                "model": Ambiente.llm_model.__class__.__name__}
+                "model": Ambiente.llm_model.nome}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
