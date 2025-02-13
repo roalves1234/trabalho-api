@@ -9,7 +9,7 @@ import os
 load_dotenv()
 app = FastAPI()
 Ambiente.set_usuario(Usuario("admin", "admin"))
-Ambiente.set_model(LLM_Model.ChatGPT())
+Ambiente.set_model(LLM_Model.Gemini())
 
 
 app.include_router(endpoints.router)
