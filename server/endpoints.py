@@ -10,6 +10,7 @@ from ambiente import Ambiente
 from token_tool import Token
 from logger import Logger
 from utils import File_Tool
+from file_work import File_Work
 
 router = APIRouter()
 
@@ -37,21 +38,15 @@ def get_completion(material: Material, token: str = Depends(Token.verificar)):
     try:
         material.validar()
 
-        file = File_Tool("output.md")
-        file.save(f"# {material.texto}")
-        sleep(0.4)
-        file.save(f"# {material.texto}.")
-        sleep(0.4)
-        file.save(f"# {material.texto}..")
-        sleep(0.4)
-        file.save(f"# {material.texto}...")
+        file_work = File_Work()
+        file_work.do_texto(material.texto)
 
         completando = LLM_Work(material.texto).get()
         resultado = {"texto": material.texto,
                     "completando": completando,
                     "model": Ambiente.llm_model.nome}
 
-        file.save(f"# {material.texto} {completando}")
+        file_work.do_completando(completando)
         return resultado
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
