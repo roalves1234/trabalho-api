@@ -1,5 +1,6 @@
 .env
 teste.py
-fastapi.code-workspace
+output.md
 api.log
+fastapi.code-workspace
 __pycache__/

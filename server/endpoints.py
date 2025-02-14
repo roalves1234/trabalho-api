@@ -20,15 +20,18 @@ def get_token(form_data: OAuth2PasswordRequestForm = Depends()): # passado no bo
 
 @router.post("/set_model")
 def set_model(model_name: str, token: str = Depends(Token.verificar)):
+    Logger.get_instance().set(f"/set_model: model_name = {model_name}")
     try:
         Ambiente.set_model(LLM_Model.Factory.get(model_name))
+        Logger.get_instance().set("/set_model: alteração ok")
+        
         return {"message": f"Modelo alterado com sucesso para {model_name}"}
     except Exception as e:
+        Logger.get_instance().set(f"/set_model: erro = {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/get_completion")
 def get_completion(material: Material, token: str = Depends(Token.verificar)):
-    Logger.get_instance().set(f"/get_completion: texto = {material.texto}")
     try:
         material.validar()
         

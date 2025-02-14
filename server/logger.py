@@ -23,6 +23,9 @@ class Logger:
                 logging.FileHandler('api.log')
             ]
         )
+        logging.getLogger("uvicorn").propagate = False
+        logging.getLogger("uvicorn.access").propagate = False
+        logging.getLogger("fastapi").propagate = False
 
         return logging.getLogger(__name__)
             
