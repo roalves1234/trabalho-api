@@ -1,13 +1,15 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from textwrap import dedent
+from time import sleep
 from classes import Material
 from llm import LLM
-from ambiente import Ambiente
 from llm_model import LLM_Model
-from token_tool import Token
 from llm_work import LLM_Work
+from ambiente import Ambiente
+from token_tool import Token
 from logger import Logger
+from utils import File_Tool
 
 router = APIRouter()
 
@@ -34,12 +36,22 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
 def get_completion(material: Material, token: str = Depends(Token.verificar)):
     try:
         material.validar()
-        
+
+        file = File_Tool("output.md")
+        file.save(f"# {material.texto}")
+        sleep(0.4)
+        file.save(f"# {material.texto}.")
+        sleep(0.4)
+        file.save(f"# {material.texto}..")
+        sleep(0.4)
+        file.save(f"# {material.texto}...")
+
+        completando = LLM_Work(material.texto).get()
         resultado = {"texto": material.texto,
-                    "completando": LLM_Work(material.texto).get(),
+                    "completando": completando,
                     "model": Ambiente.llm_model.nome}
 
-        Logger.get_instance().set(f"Resultado: {resultado}")
+        file.save(f"# {material.texto} {completando}")
         return resultado
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
