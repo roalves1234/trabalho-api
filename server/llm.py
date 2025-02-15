@@ -1,14 +1,15 @@
-class LLM:
-    def __init__(self):
-        self.model = None
+from classes import IModel
 
-    def set_model(self, model):
+class LLM:
+    model: IModel = None
+
+    def set_model(self, model: IModel) -> 'LLM':
         self.model = model
         return self
 
-    def set_prompt(self, prompt):
+    def set_prompt(self, prompt: str) -> 'LLM':
         self.model.set_prompt(prompt)
         return self
 
-    def go(self):
+    def go(self) -> str:
         return self.model.get()

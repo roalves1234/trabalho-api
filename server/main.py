@@ -12,6 +12,3 @@ Ambiente.set_model(LLM_Model.ChatGPT())
 
 app = FastAPI()
 app.include_router(endpoints.router)
-
-
-### incluir tipagem em todo o fonte.

@@ -4,6 +4,8 @@ from llm import LLM
 from ambiente import Ambiente
 
 class LLM_Work:
+    texto: str = ""
+    
     def __init__(self, texto: str):
         self.texto = texto
 
@@ -28,7 +30,7 @@ class LLM_Work:
                        </texto>
                        """)
 
-    def get_json_resposta(self):
+    def get_json_resposta(self) -> JSON_Tool:
         return JSON_Tool(LLM() \
                             .set_model(Ambiente.llm_model) \
                             .set_prompt(self.get_prompt()) \

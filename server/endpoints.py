@@ -15,14 +15,14 @@ from file_work import File_Work
 router = APIRouter()
 
 @router.post("/get_token")
-def get_token(form_data: OAuth2PasswordRequestForm = Depends()): # passado no body da requisição no formato x-www-form-urlencoded
+def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict: # passado no body da requisição no formato x-www-form-urlencoded
     if form_data.username != Ambiente.usuario.nome or form_data.password != Ambiente.usuario.senha:
         raise HTTPException(status_code=400, detail="Nome de usuário ou senha inválidos!")
     token = Token.criar(username_data={"sub": form_data.username})
     return {"token": token, "token_type": "bearer"}
 
 @router.post("/set_model")
-def set_model(model_name: str, token: str = Depends(Token.verificar)):
+def set_model(model_name: str, token: str = Depends(Token.verificar)) -> dict:
     Logger.get_instance().set(f"/set_model: model_name = {model_name}")
     try:
         Ambiente.set_model(LLM_Model.Factory.get(model_name))
@@ -34,7 +34,7 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)):
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/get_completion")
-def get_completion(material: Material, token: str = Depends(Token.verificar)):
+def get_completion(material: Material, token: str = Depends(Token.verificar)) -> dict:
     try:
         material.validar()
 

@@ -3,8 +3,8 @@ from utils import File_Tool
 
 class File_Work:
     def __init__(self):
-        self.file = File_Tool("output.md")
-        self.texto: str
+        self.file: File_Tool = File_Tool("output.md")
+        self.texto: str = ""
     
     def do_tempo(self, texto: str):
         self.file.save(f"# {texto}")
@@ -15,7 +15,7 @@ class File_Work:
         sleep(0.4)
         self.file.save(f"# {texto}...")
 
-    def do_texto(self, texto):
+    def do_texto(self, texto: str):
         self.texto = texto
         self.do_tempo(texto.strip())
         

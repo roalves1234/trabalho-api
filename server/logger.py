@@ -1,11 +1,12 @@
 import logging
 
 class Logger:
-    _instance = None
-    _ativo = True
-    _logger = None
+    _instance: 'Logger' = None
+    _ativo: bool = True
+    _logger: logging.Logger = None
     
-    def get_instance():
+    @staticmethod
+    def get_instance() -> 'Logger':
         if Logger._instance is None:
             Logger._instance = Logger()
         return Logger._instance
@@ -14,7 +15,7 @@ class Logger:
         self._ativo = True
         self._logger = self.__get_logger()
     
-    def __get_logger(self):
+    def __get_logger(self) -> logging.Logger:
         logging.basicConfig(
             level=logging.DEBUG,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

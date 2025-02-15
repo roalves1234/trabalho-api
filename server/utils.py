@@ -1,7 +1,9 @@
 import json as json_lib
 
 class JSON_Tool:
-    def __init__(self, json_data):
+    json_data: str
+    
+    def __init__(self, json_data: str):
         self.json_data = json_data
 
     def get(self, campo):
