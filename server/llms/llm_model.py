@@ -1,6 +1,6 @@
 from openai import OpenAI
 import google.generativeai as genai
-from classes import IModel
+from classes import ILLM_Model
 from llms.llm_api_key import LLM_API_Key
 from ambiente import Ambiente
 
@@ -13,7 +13,7 @@ class LLM_Model:
         Gemini: Implementação do modelo Gemini.
         Factory: Fábrica para criação de instâncias de modelos de linguagem.
     """
-    class ChatGPT(IModel):
+    class ChatGPT(ILLM_Model):
         """
         Implementação do modelo ChatGPT.
         
@@ -52,7 +52,7 @@ class LLM_Model:
                             ]).choices[0].message.content
             return resposta
 
-    class Gemini(IModel):
+    class Gemini(ILLM_Model):
         """
         Implementação do modelo Gemini.
         
@@ -95,7 +95,7 @@ class LLM_Model:
             get(model_name: str) -> IModel: Retorna a instância do modelo de linguagem especificado.
         """
         @staticmethod
-        def get(model_name: str) -> IModel:
+        def get(model_name: str) -> ILLM_Model:
             if model_name == "ChatGPT":
                 return LLM_Model.ChatGPT.get_instance()
             elif model_name == "Gemini":

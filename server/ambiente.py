@@ -1,4 +1,4 @@
-from classes import IModel
+from classes import ILLM_Model
 
 class Ambiente:
     """
@@ -15,14 +15,14 @@ class Ambiente:
         set_model(value: IModel): Define a instância do modelo de linguagem.
     """
     usuario: str
-    llm_model: IModel
+    llm_model: ILLM_Model
 
     @staticmethod
     def usuario() -> str:
         return Ambiente.usuario
 
     @staticmethod
-    def llm_model() -> IModel:
+    def llm_model() -> ILLM_Model:
         return Ambiente.llm_model
 
     @staticmethod
@@ -30,5 +30,5 @@ class Ambiente:
         Ambiente.usuario = value
         
     @staticmethod
-    def set_model(value: IModel):
+    def set_model(value: ILLM_Model):
         Ambiente.llm_model = value

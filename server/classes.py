@@ -1,25 +1,8 @@
 from fastapi import HTTPException, status
 from pydantic import BaseModel
 from abc import ABC, abstractmethod
-from typing import Any
 
-class Material(BaseModel):
-    """
-    Classe que representa um material.
-    
-    Atributos:
-        texto (str): Texto do material.
-    
-    Métodos:
-        validar(): Valida se o campo texto está preenchido.
-    """
-    texto: str
-    
-    def validar(self):
-        if not self.texto:
-            raise Exception("O campo texto é obrigatório.")
-    
-class IModel(ABC):
+class ILLM_Model(ABC):
     """
     Interface para modelos de linguagem.
     

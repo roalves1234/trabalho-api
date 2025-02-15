@@ -1,4 +1,4 @@
-from classes import IModel
+from classes import ILLM_Model
 
 class LLM:
     """
@@ -12,9 +12,9 @@ class LLM:
         set_prompt(prompt: str) -> LLM: Define o prompt a ser utilizado pelo modelo.
         go() -> str: Executa o modelo de linguagem e retorna a resposta.
     """
-    model: IModel = None
+    model: ILLM_Model = None
 
-    def set_model(self, model: IModel) -> 'LLM':
+    def set_model(self, model: ILLM_Model) -> 'LLM':
         self.model = model
         return self
 

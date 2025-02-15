@@ -1,6 +1,6 @@
 from textwrap import dedent
 from Utils.utils import JSON_Tool
-from llm import LLM
+from llms.llm import LLM
 from ambiente import Ambiente
 
 class LLM_Work:
