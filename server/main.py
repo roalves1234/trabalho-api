@@ -7,8 +7,9 @@ import endpoints
 import os
 
 Logger.get_instance().desativar()
-Ambiente.set_usuario(Usuario("admin", "admin"))
-Ambiente.set_model(LLM_Model.ChatGPT())
+Ambiente \
+    .set_usuario(Usuario("admin", "admin")) \
+    .set_model(LLM_Model.ChatGPT())
 
 app = FastAPI()
 app.include_router(endpoints.router) 

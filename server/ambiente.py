@@ -26,9 +26,11 @@ class Ambiente:
         return Ambiente.llm_model
 
     @staticmethod
-    def set_usuario(value: str):
+    def set_usuario(value: str) -> 'Ambiente':
         Ambiente.usuario = value
+        return Ambiente
         
     @staticmethod
-    def set_model(value: ILLM_Model):
+    def set_model(value: ILLM_Model) -> 'Ambiente':
         Ambiente.llm_model = value
+        return Ambiente
