@@ -1,6 +1,15 @@
 import logging
 
 class Logger:
+    """
+    Classe para gerenciamento de logs.
+    
+    Métodos:
+        get_instance() -> Logger: Retorna a instância única da classe Logger.
+        set(mensagem: str): Registra uma mensagem de log.
+        ativar(): Ativa o logger.
+        desativar(): Desativa o logger.
+    """
     _instance: 'Logger' = None
     _ativo: bool = True
     _logger: logging.Logger = None

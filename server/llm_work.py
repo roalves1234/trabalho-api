@@ -4,6 +4,17 @@ from llm import LLM
 from ambiente import Ambiente
 
 class LLM_Work:
+    """
+    Classe para manipulação de trabalhos com modelos de linguagem.
+    
+    Atributos:
+        texto (str): Texto a ser utilizado no trabalho.
+    
+    Métodos:
+        get_prompt() -> str: Retorna o prompt formatado para o modelo de linguagem.
+        get_json_resposta() -> JSON_Tool: Retorna a resposta do modelo de linguagem em formato JSON.
+        get() -> str: Retorna a resposta do modelo de linguagem.
+    """
     texto: str = ""
     
     def __init__(self, texto: str):

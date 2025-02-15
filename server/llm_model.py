@@ -5,8 +5,28 @@ from config import Config
 from ambiente import Ambiente
 
 class LLM_Model:
-
+    """
+    Classe para gerenciamento de diferentes modelos de linguagem.
+    
+    Subclasses:
+        ChatGPT: Implementação do modelo ChatGPT.
+        Gemini: Implementação do modelo Gemini.
+        Factory: Fábrica para criação de instâncias de modelos de linguagem.
+    """
     class ChatGPT(IModel):
+        """
+        Implementação do modelo ChatGPT.
+        
+        Atributos:
+            _instance (LLM_Model.ChatGPT): Instância única da classe ChatGPT.
+            _client (OpenAI): Cliente da API OpenAI.
+            prompt (str): Prompt a ser utilizado pelo modelo.
+        
+        Métodos:
+            get_instance() -> LLM_Model.ChatGPT: Retorna a instância única da classe ChatGPT.
+            set_prompt(prompt): Define o prompt a ser utilizado pelo modelo.
+            get() -> str: Retorna a resposta do modelo ChatGPT.
+        """
         _instance: 'LLM_Model.ChatGPT' = None 
         _client: OpenAI = None
         prompt: str = ""
@@ -33,6 +53,19 @@ class LLM_Model:
             return resposta
 
     class Gemini(IModel):
+        """
+        Implementação do modelo Gemini.
+        
+        Atributos:
+            _instance (LLM_Model.Gemini): Instância única da classe Gemini.
+            _client (genai.GenerativeModel): Cliente da API Generative AI.
+            prompt (str): Prompt a ser utilizado pelo modelo.
+        
+        Métodos:
+            get_instance() -> LLM_Model.Gemini: Retorna a instância única da classe Gemini.
+            set_prompt(prompt): Define o prompt a ser utilizado pelo modelo.
+            get() -> str: Retorna a resposta do modelo Gemini.
+        """
         _instance: 'LLM_Model.Gemini' = None 
         _client: genai.GenerativeModel = None
         prompt: str
@@ -55,6 +88,12 @@ class LLM_Model:
             return resposta
     
     class Factory:
+        """
+        Fábrica para criação de instâncias de modelos de linguagem.
+        
+        Métodos:
+            get(model_name: str) -> IModel: Retorna a instância do modelo de linguagem especificado.
+        """
         @staticmethod
         def get(model_name: str) -> IModel:
             if model_name == "ChatGPT":

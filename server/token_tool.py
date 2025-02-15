@@ -5,6 +5,13 @@ from ambiente import Ambiente
 import jwt
 
 class Token:
+    """
+    Classe para criação e verificação de tokens JWT.
+    
+    Métodos:
+        criar(username_data: dict) -> str: Cria um token JWT com os dados do usuário.
+        verificar(token: str = Depends(oauth2_scheme)) -> str: Verifica a validade do token JWT.
+    """
     SECRET_KEY: str = "UFG"
     ALGORITHM: str = "HS256"
     oauth2_scheme: OAuth2PasswordBearer = OAuth2PasswordBearer(tokenUrl="token")

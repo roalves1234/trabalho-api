@@ -1,4 +1,11 @@
 class Usuario:
+    """
+    Classe que representa um usuário.
+    
+    Atributos:
+        nome (str): Nome do usuário.
+        senha (str): Senha do usuário.
+    """
     nome: str = ""
     senha: str = ""
     

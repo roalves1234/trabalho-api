@@ -1,6 +1,17 @@
 from classes import IModel
 
 class LLM:
+    """
+    Classe para interação com modelos de linguagem.
+    
+    Atributos:
+        model (IModel): Instância do modelo de linguagem.
+    
+    Métodos:
+        set_model(model: IModel) -> LLM: Define o modelo de linguagem a ser utilizado.
+        set_prompt(prompt: str) -> LLM: Define o prompt a ser utilizado pelo modelo.
+        go() -> str: Executa o modelo de linguagem e retorna a resposta.
+    """
     model: IModel = None
 
     def set_model(self, model: IModel) -> 'LLM':
