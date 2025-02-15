@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from ambiente import Ambiente
 from  llm_model import LLM_Model
 from usuario import Usuario
-from logger import Logger
+from Utils.logger import Logger
 import endpoints
 import os
 

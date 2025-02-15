@@ -1,7 +1,7 @@
 from openai import OpenAI
 import google.generativeai as genai
 from classes import IModel
-from config import Config
+from llm_api_key import LLM_API_Key
 from ambiente import Ambiente
 
 class LLM_Model:
@@ -32,7 +32,7 @@ class LLM_Model:
         prompt: str = ""
 
         def __init__(self):
-            self._client = OpenAI(api_key = Config.openai_api_key())
+            self._client = OpenAI(api_key = LLM_API_Key.openai())
 
         @staticmethod
         def get_instance() -> 'LLM_Model.ChatGPT':
@@ -71,7 +71,7 @@ class LLM_Model:
         prompt: str
 
         def __init__(self):
-            genai.configure(api_key=Config.google_api_key())
+            genai.configure(api_key=LLM_API_Key.google())
             self._client = genai.GenerativeModel(model_name="gemini-1.5-flash-002")
 
         @staticmethod

@@ -5,8 +5,8 @@ from time import sleep
 from classes import Material
 from ambiente import Ambiente
 from Utils.token_tool import Token
-from logger import Logger
-from utils import File_Tool
+from Utils.logger import Logger
+from Utils.utils import File_Tool
 from llm import LLM
 from llm_model import LLM_Model
 from llm_work import LLM_Work
