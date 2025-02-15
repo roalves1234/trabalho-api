@@ -1,4 +1,4 @@
-from model_base import ILLM_Model
+from models.model_base import ILLM_Model
 
 class LLM:
     """

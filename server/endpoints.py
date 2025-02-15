@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from textwrap import dedent
 from time import sleep
-from material import Material
+from models.material import Material
 from ambiente import Ambiente
 from Utils.token_tool import Token
 from Utils.logger import Logger

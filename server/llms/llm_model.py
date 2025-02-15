@@ -1,6 +1,6 @@
 from openai import OpenAI
 import google.generativeai as genai
-from model_base import ILLM_Model
+from models.model_base import ILLM_Model
 from llms.llm_api_key import LLM_API_Key
 from ambiente import Ambiente
 
