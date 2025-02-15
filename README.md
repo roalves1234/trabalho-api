@@ -1,5 +1,8 @@
-```
-# Passo a Passo para Rodar a Solução
+# A solução
+Serviço de completação textual. O usuário digita e a IA completa.
+
+_Veja a seguir o passo a passo para rodar a solução:_
+
 
 ## 1. Clonar o Repositório
 Para obter o código-fonte, clone o repositório do GitHub executando o seguinte comando no terminal:
@@ -18,21 +21,17 @@ Crie um ambiente virtual para gerenciar as dependências do projeto:
  python3 -m venv venv
 
 Ative o ambiente virtual:
-- No Linux/Mac:
-
-  source venv/bin/activate
-- No Windows:
 
   venv\Scripts\activate
 
 ## 4. Instalar Dependências
+
+Copie o arquivo `pyproject.toml` para a pasta onde está o ambiente virtual.
+
 Instale as dependências listadas no arquivo `pyproject.toml`:
 
- uv pip install -r requirements.txt
+ uv sync
 
-Caso esteja utilizando **Poetry**, execute:
-
- poetry install
 
 ## 5. Executar o Servidor FastAPI
 Para rodar a aplicação FastAPI, execute:
@@ -44,11 +43,12 @@ Isso iniciará o servidor na porta 8000. Você pode acessar a API através do na
 - Documentação interativa Swagger: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - Documentação Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-## 6. Variáveis de Ambiente (Se Necessário)
-Caso a aplicação dependa de credenciais ou chaves de API, crie um arquivo **.env** na raiz do projeto e adicione suas variáveis de ambiente, por exemplo:
+## 6. Variáveis de Ambiente
 
-API_KEY=seu_token_aqui
-SECRET_KEY=chave_secreta
+crie um arquivo **.env** na raiz do projeto e informe as seguintes APIs de LLMs e suas credenciais:
+
+OPENAI_API_KEY=(informe a chave aqui)
+GOOGLE_API_KEY=(informe a chave aqui)
 
 Para carregar essas variáveis, você pode usar a biblioteca `python-dotenv` e adicioná-las no código conforme necessário.
 
@@ -66,10 +66,3 @@ Para parar a execução do servidor, pressione `CTRL + C` no terminal.
 Se você quiser sair do ambiente virtual, basta executar:
 
  deactivate
-
----
-Seguindo esses passos, você será capaz de rodar a aplicação em qualquer máquina. Caso encontre problemas, verifique a documentação oficial das ferramentas utilizadas ou consulte a equipe de desenvolvimento.
-
-Boa codificação! 🚀
-```
-
