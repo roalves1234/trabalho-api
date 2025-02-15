@@ -1,4 +1,4 @@
-from classes import ILLM_Model
+from model_base import ILLM_Model
 
 class Ambiente:
     """
