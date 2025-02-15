@@ -18,18 +18,20 @@ class File_Work:
         self.file: File_Tool = File_Tool("output.md")
         self.texto: str = ""
     
-    def do_tempo(self, texto: str):
-        self.file.save(f"# {texto}")
+    def escrever_especial(self, texto: str):
+        self.escrever(texto)
         sleep(0.4)
-        self.file.save(f"# {texto}.")
-        sleep(0.4)
-        self.file.save(f"# {texto}..")
-        sleep(0.4)
-        self.file.save(f"# {texto}...")
+
+    def escrever(self, texto: str):
+        self.file.save(texto.rstrip())
 
     def do_texto(self, texto: str):
         self.texto = texto
-        self.do_tempo(texto.strip())
+
+        self.escrever_especial(f"# {texto}")
+        self.escrever_especial(f"# {texto}.")
+        self.escrever_especial(f"# {texto}..")
+        self.escrever(f"# {texto}...")
         
     def do_completando(self, completando: str):
-        self.file.save(f"# {self.texto}*{completando}*")
+        self.escrever(f"# {self.texto}*{completando}*")
