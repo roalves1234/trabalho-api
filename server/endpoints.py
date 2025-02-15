@@ -15,7 +15,16 @@ from file_work import File_Work
 router = APIRouter()
 
 @router.post("/get_token")
-def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict: # passado no body da requisição no formato x-www-form-urlencoded
+def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict:
+    """
+    Endpoint para obter um token de autenticação.
+    
+    Parâmetros:
+    - form_data: Dados do formulário contendo nome de usuário e senha.
+    
+    Retorna:
+    - Um dicionário contendo o token e o tipo de token.
+    """
     if form_data.username != Ambiente.usuario.nome or form_data.password != Ambiente.usuario.senha:
         raise HTTPException(status_code=400, detail="Nome de usuário ou senha inválidos!")
     token = Token.criar(username_data={"sub": form_data.username})
@@ -23,6 +32,16 @@ def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict: # passa
 
 @router.post("/set_model")
 def set_model(model_name: str, token: str = Depends(Token.verificar)) -> dict:
+    """
+    Endpoint para definir o modelo de linguagem.
+    
+    Parâmetros:
+    - model_name: Nome do modelo a ser definido.
+    - token: Token de autenticação.
+    
+    Retorna:
+    - Uma mensagem indicando o sucesso da operação.
+    """
     Logger.get_instance().set(f"/set_model: model_name = {model_name}")
     try:
         Ambiente.set_model(LLM_Model.Factory.get(model_name))
@@ -35,6 +54,16 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)) -> dict:
 
 @router.post("/get_completion")
 def get_completion(material: Material, token: str = Depends(Token.verificar)) -> dict:
+    """
+    Endpoint para obter a conclusão de um texto.
+    
+    Parâmetros:
+    - material: Objeto contendo o texto a ser completado.
+    - token: Token de autenticação.
+    
+    Retorna:
+    - Um dicionário contendo o texto original, a conclusão gerada e o nome do modelo utilizado.
+    """
     try:
         material.validar()
 

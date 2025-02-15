@@ -1,6 +1,19 @@
 from classes import IModel
 
 class Ambiente:
+    """
+    A classe Ambiente é responsável por gerenciar o contexto do usuário e o modelo de linguagem (LLM).
+    
+    Atributos:
+        usuario (str): Armazena o nome do usuário.
+        llm_model (IModel): Armazena a instância do modelo de linguagem.
+
+    Métodos:
+        usuario() -> str: Retorna o nome do usuário.
+        llm_model() -> IModel: Retorna a instância do modelo de linguagem.
+        set_usuario(value: str): Define o nome do usuário.
+        set_model(value: IModel): Define a instância do modelo de linguagem.
+    """
     usuario: str
     llm_model: IModel
 
