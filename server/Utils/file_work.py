@@ -23,10 +23,11 @@ class File_Work:
         sleep(0.4)
 
     def escrever(self, texto: str):
-        self.file.save(texto.rstrip())
+        self.file.save(texto)
 
     def do_texto(self, texto: str):
         self.texto = texto
+        texto = texto.rstrip()
 
         self.escrever_especial(f"# {texto}")
         self.escrever_especial(f"# {texto}.")
@@ -34,4 +35,4 @@ class File_Work:
         self.escrever(f"# {texto}...")
         
     def do_completando(self, completando: str):
-        self.escrever(f"# {self.texto}*{completando}*")
+        self.escrever(f"# {self.texto}**_{completando}_**")

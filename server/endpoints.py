@@ -14,7 +14,7 @@ from Utils.file_work import File_Work
 
 router = APIRouter()
 
-@router.post("/get_token")
+@router.post("/get_token/v1")
 def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict:
     """
     Endpoint para obter um token de autenticação.
@@ -30,7 +30,7 @@ def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> dict:
     token = Token.criar(username_data={"sub": form_data.username})
     return {"token": token, "token_type": "bearer"}
 
-@router.post("/set_model")
+@router.post("/set_model/v1")
 def set_model(model_name: str, token: str = Depends(Token.verificar)) -> dict:
     """
     Endpoint para definir o modelo de linguagem.
@@ -52,7 +52,7 @@ def set_model(model_name: str, token: str = Depends(Token.verificar)) -> dict:
         Logger.get_instance().set(f"/set_model: erro = {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/get_completion")
+@router.post("/get_completion/v1")
 def get_completion(material: Material, token: str = Depends(Token.verificar)) -> dict:
     """
     Endpoint para obter a conclusão de um texto.
@@ -71,11 +71,12 @@ def get_completion(material: Material, token: str = Depends(Token.verificar)) ->
         file_work.do_texto(material.texto)
 
         completando = LLM_Work(material.texto).get()
-        resultado = {"texto": material.texto,
-                    "completando": completando,
-                    "model": Ambiente.llm_model.nome}
-
         file_work.do_completando(completando)
+
+        resultado = {"texto": material.texto,
+                     "completando": completando,
+                     "model": Ambiente.llm_model.nome}
+
         return resultado
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
