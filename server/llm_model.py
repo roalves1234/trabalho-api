@@ -1,7 +1,7 @@
 from openai import OpenAI
 import google.generativeai as genai
 from classes import IModel
-from llm_api_key import LLM_API_Key
+from llms.llm_api_key import LLM_API_Key
 from ambiente import Ambiente
 
 class LLM_Model:
